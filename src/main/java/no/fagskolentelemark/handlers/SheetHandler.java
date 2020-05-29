@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -68,11 +69,19 @@ public class SheetHandler {
 		if (values == null || values.isEmpty()) {
 			System.out.println("No data found.");
 		} else {
-			String fileName = MainUtil.getDate() + ".csv";
-			File outputFile = null;
-			FileOutputStream outputStream = null;
-			BufferedWriter outputWriter = null;
-
+			
+			// Users file
+			String userFileName = "users " + MainUtil.getDate() + ".csv";
+			File userOutputFile = null;
+			FileOutputStream userOutputStream = null;
+			BufferedWriter userOutputWriter = null;
+			
+			// Enrollment file
+			String enrollFileName = "enroll " + MainUtil.getDate() + ".csv";
+			File enrollOutputFile = null;
+			FileOutputStream enrollOutputStream = null;
+			BufferedWriter enrollOutputWriter = null;
+			
 			HashMap<String, Integer> header = new HashMap<String, Integer>(); 
 			for (@SuppressWarnings("rawtypes") List row : values) {
 				// Load header
@@ -89,32 +98,50 @@ public class SheetHandler {
 				else {
 					String firstName = (String) row.get(header.get("Fornavn"));
 					String lastName = (String) row.get(header.get("Etternavn"));
-					String email = (String) row.get(header.get("Din epost"));
+					String email = (String) row.get(header.get("E-postadresse"));
 					int phone = Integer.parseInt(((String) row.get(header.get("Tlf nr"))).replace("+47", "").replace(" ", ""));
 
-					String username = (lastName.substring(0, 3) + firstName.substring(0, 1) + EkomMain.ekomNum).toLowerCase().replace("æ", "e").replace("ø", "o").replace("å", "a");
+					String userId = (lastName.substring(0, 3) + firstName.substring(0, 1) + EkomMain.courseName).toLowerCase().replace("æ", "e").replace("ø", "o").replace("å", "a").replace(" ", "").replace("ekom", "").replace("sandnes", "s").replace("rogaland", "r").replaceAll("energidesign", "-edbf");
 					String password = MainUtil.generatePassword();
+					String courseId = EkomMain.courseName.toLowerCase().replace(" ", "");
 
-					Student user = new Student(firstName, lastName, username, phone, email, password);
+					Student user = new Student(firstName, lastName, userId, phone, email, password);
 					if (!HistoryHandler.seenBefore(user)) {
-						// Open stream for the first time
-						if (outputWriter == null) {
-							outputFile = new File(EkomMain.mainDir + File.separator + "Imports" + File.separator + fileName);
-							outputStream = new FileOutputStream(outputFile);
-							outputWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+						// Users file
+						if (userOutputWriter == null) {
+							userOutputFile = new File(EkomMain.mainDir + File.separator + "Imports" + File.separator + userFileName);
+							userOutputStream = new FileOutputStream(userOutputFile);
+							userOutputWriter = new BufferedWriter(new OutputStreamWriter(userOutputStream, StandardCharsets.UTF_8));
+							userOutputWriter.write("user_id,password,first_name,last_name,email,login_id,status");
+							userOutputWriter.newLine();
 						}
-
-						// Write to stream
-						outputWriter.write(username + ";" + password + ";" + firstName + ";" + lastName + ";" + email + ";" + phone);
-						outputWriter.newLine();
+						
+						userOutputWriter.write(userId + "," + password + "," + firstName + "," + lastName + "," + email + "," + email + ",active");
+						userOutputWriter.newLine();
+						
+						
+						
+						// Enrollment file
+						if (enrollOutputWriter == null) {
+							enrollOutputFile = new File(EkomMain.mainDir + File.separator + "Imports" + File.separator + enrollFileName);
+							enrollOutputStream = new FileOutputStream(enrollOutputFile);
+							enrollOutputWriter = new BufferedWriter(new OutputStreamWriter(enrollOutputStream, StandardCharsets.UTF_8));
+							enrollOutputWriter.write("course_id,user_id,role,status");
+							enrollOutputWriter.newLine();
+						}
+						
+						enrollOutputWriter.write(courseId + "," + userId + ",student,active");
+						enrollOutputWriter.newLine();
 						
 						// Add new student
 						EkomMain.newStudents.add(user);
 					}
 				}
 			}
-
-			if (outputWriter != null) outputWriter.close();
+			
+			if (userOutputWriter != null) userOutputWriter.close();
+			if (enrollOutputWriter != null) enrollOutputWriter.close();
+			
 		}
 	}
 }

@@ -61,22 +61,26 @@ public class MailHandler {
 			// Text
 			MimeBodyPart textBodyPart = new MimeBodyPart();
 			String msgBody = "Hei<br/><br/>"
-					+ "<b>Fronter</b><br/>"
-					+ "Innlogging: <a href=\"https://fronter.com/telemarkvgs/\">https://fronter.com/telemarkvgs/</a><br/>"
-					+ "Brukernavn: " + username + "<br/>"
+					+ "<b>Canvas</b><br/>"
+					+ "Innlogging: <a href=\"https://fagskolentelemark.instructure.com/login/canvas\">fagskolentelemark.instructure.com/login/canvas</a><br/>"
+					+ "Login: " + email + "<br/>"
 					+ "Passord: " + password + "<br/><br/>"
 					+ "<b>Facebook</b><br/>"
 					+ "Meld deg inn i Facebook grouppen her: <a href=\"" + EkomMain.fbLink + "\">" + EkomMain.fbLink + "</a><br/><br/>"
 					+ "<b>Web klasserommet</b><br/>"
-					+ "Kobling: <a href=\"https://tfk.adobeconnect.com/ekom18/\">https://tfk.adobeconnect.com/ekom18/</a>";
+					+ "Kobling: <a href=\"" + EkomMain.roomLink + "\">" + EkomMain.roomLink + "</a><br/><br/>"
+					+ "Med vennlig hilsen<br/>"
+					+ "André Mathisen";
 			textBodyPart.setContent(msgBody, "text/html");
 
 			// Attachment
-			MimeBodyPart attachmentBodyPart = new MimeBodyPart();
-			DataSource source = new FileDataSource(EkomMain.mainDir.getAbsolutePath() + File.separator + "_Introduksjonsbrev EKOM.pdf");
-			attachmentBodyPart.setDataHandler(new DataHandler(source));
-			attachmentBodyPart.setFileName("Introduksjonsbrev EKOM " + EkomMain.ekomNum + ".pdf");
-			multipart.addBodyPart(attachmentBodyPart);
+			if (EkomMain.sendPDF) {
+				MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+				DataSource source = new FileDataSource(EkomMain.mainDir.getAbsolutePath() + File.separator + "_Introduksjonsbrev.pdf");
+				attachmentBodyPart.setDataHandler(new DataHandler(source));
+				attachmentBodyPart.setFileName("Introduksjonsbrev.pdf");
+				multipart.addBodyPart(attachmentBodyPart);
+			}
 
 			msg.setContent(multipart);
 			multipart.addBodyPart(textBodyPart);
