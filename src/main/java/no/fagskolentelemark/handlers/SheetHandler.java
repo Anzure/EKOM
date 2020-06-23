@@ -101,7 +101,7 @@ public class SheetHandler {
 					String email = (String) row.get(header.get("E-postadresse"));
 					int phone = Integer.parseInt(((String) row.get(header.get("Tlf nr"))).replace("+47", "").replace(" ", ""));
 
-					String userId = (lastName.substring(0, 3) + firstName.substring(0, 1) + EkomMain.courseName).toLowerCase().replace("æ", "e").replace("ø", "o").replace("å", "a").replace(" ", "").replace("ekom", "").replace("sandnes", "s").replace("rogaland", "r").replaceAll("energidesign", "-edbf");
+					String userId = (lastName.substring(0, 3) + firstName.substring(0, 1) + EkomMain.courseName).toLowerCase().replace("æ", "e").replace("ø", "o").replace("å", "a").replace(" ", "").replace("ekom", "").replace("sandnes", "s").replace("rogaland", "r").replace("bransjeprogram", "").replaceAll("energidesign", "-edbf");
 					String password = MainUtil.generatePassword();
 					String courseId = EkomMain.courseName.toLowerCase().replace(" ", "");
 
