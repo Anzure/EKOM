@@ -65,8 +65,6 @@ public class MailHandler {
 					+ "Innlogging: <a href=\"https://fagskolentelemark.instructure.com/login/canvas\">fagskolentelemark.instructure.com/login/canvas</a><br/>"
 					+ "Login: " + email + "<br/>"
 					+ "Passord: " + password + "<br/><br/>"
-					+ "<b>Facebook</b><br/>"
-					+ "Meld deg inn i Facebook grouppen her: <a href=\"" + EkomMain.fbLink + "\">" + EkomMain.fbLink + "</a><br/><br/>"
 					+ "<b>Web klasserommet</b><br/>"
 					+ "Kobling: <a href=\"" + EkomMain.roomLink + "\">" + EkomMain.roomLink + "</a><br/><br/>"
 					+ "Med vennlig hilsen<br/>"

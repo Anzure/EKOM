@@ -99,9 +99,9 @@ public class SheetHandler {
 					String firstName = (String) row.get(header.get("Fornavn"));
 					String lastName = (String) row.get(header.get("Etternavn"));
 					String email = (String) row.get(header.get("E-postadresse"));
-					int phone = Integer.parseInt(((String) row.get(header.get("Tlf nr"))).replace("+47", "").replace(" ", ""));
+					int phone = Integer.parseInt(((String) row.get(header.get("Tlf nr"))).replace("+47", "").replace(" ", "").substring(0, 8));
 
-					String userId = (lastName.substring(0, 3) + firstName.substring(0, 1) + EkomMain.courseName).toLowerCase().replace("æ", "e").replace("ø", "o").replace("å", "a").replace(" ", "").replace("ekom", "").replace("sandnes", "s").replace("rogaland", "r").replace("bransjeprogram", "").replaceAll("energidesign", "-edbf");
+					String userId = (lastName.substring(0, 3) + firstName.substring(0, 2) + EkomMain.courseNum).toLowerCase().replace("æ", "e").replace("ø", "o").replace("å", "a").replace(" ", "").replace("ekom", "").replace("sandnes", "s").replace("rogaland", "r").replace("internetofthingss", "").replace("iot", "").replace("bransjeprogram", "").replaceAll("energidesign", "-edbf");
 					String password = MainUtil.generatePassword();
 					String courseId = EkomMain.courseName.toLowerCase().replace(" ", "");
 
