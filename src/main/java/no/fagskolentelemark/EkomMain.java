@@ -13,7 +13,7 @@ import no.fagskolentelemark.utils.MainUtil;
 
 public class EkomMain {
 
-	public static File mainDir = new File("C:\\Users\\andre\\OneDrive - USN\\Fagskolen\\Canvas\\IoT S20");
+	public static File mainDir = new File("C:\\Users\\andre\\OneDrive - USN\\Fagskolen\\Canvas\\KNX S20");
 	public static String fbLink;
 	public static String courseName;
 	public static String courseNum;
