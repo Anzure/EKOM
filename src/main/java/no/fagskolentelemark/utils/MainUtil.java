@@ -38,9 +38,9 @@ public class MainUtil {
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 		wr.writeBytes(
 				"token=" + GitIgnored.sms_token
-						+ "&sender=" + URLEncoder.encode("Fagskolen", "UTF-8")
-						+ "&message=" + URLEncoder.encode(txt, "UTF-8")
-						+ "&class=premium&priority=VERY_URGENT&recipients.0.msisdn=0047" + phone
+				+ "&sender=" + URLEncoder.encode("Fagskolen", "UTF-8")
+				+ "&message=" + URLEncoder.encode(txt, "UTF-8")
+				+ "&class=premium&priority=VERY_URGENT&recipients.0.msisdn=0047" + phone
 				);
 		wr.close();
 

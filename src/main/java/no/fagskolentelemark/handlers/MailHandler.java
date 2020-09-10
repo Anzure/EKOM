@@ -66,7 +66,8 @@ public class MailHandler {
 					+ "Login: " + email + "<br/>"
 					+ "Passord: " + password + "<br/><br/>"
 					+ "<b>Web klasserommet</b><br/>"
-					+ "Kobling: <a href=\"" + EkomMain.roomLink + "\">" + EkomMain.roomLink + "</a><br/><br/>"
+					+ "Kobling: <a href=\"" + EkomMain.roomLink + "\">" + EkomMain.roomLink + "</a><br/>"
+					+ "(logg inn som gjest med navnet)<br/><br/>"
 					+ "Med vennlig hilsen<br/>"
 					+ "André Mathisen";
 			textBodyPart.setContent(msgBody, "text/html");
