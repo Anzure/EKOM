@@ -13,7 +13,7 @@ import no.fagskolentelemark.utils.MainUtil;
 
 public class EkomMain {
 
-	public static File mainDir = new File("C:\\Users\\andre\\OneDrive - USN\\Fagskolen\\Canvas\\Ekom 4-20");
+	public static File mainDir = new File("C:\\OneDrive - USN\\Fagskolen\\Canvas\\Ekom 5-20");
 	public static String fbLink;
 	public static String courseName;
 	public static String courseNum;
