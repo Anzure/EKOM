@@ -9,7 +9,7 @@ import java.util.Random;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import no.fagskolentelemark.GitIgnored;
+import no.fagskolentelemark.wrapper.Credentials;
 
 public class MainUtil {
 
@@ -35,9 +35,10 @@ public class MainUtil {
 		HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 		con.setDoOutput(true);
 
+		final Credentials internalCredentials = new Credentials();
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 		wr.writeBytes(
-				"token=" + GitIgnored.sms_token
+				"token=" + internalCredentials.getSmsToken()
 						+ "&sender=" + URLEncoder.encode("Fagskolen", "UTF-8")
 						+ "&message=" + URLEncoder.encode(txt, "UTF-8")
 						+ "&class=premium&priority=VERY_URGENT&recipients.0.msisdn=0047" + phone

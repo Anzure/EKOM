@@ -1,4 +1,4 @@
-package no.fagskolentelemark.objects;
+package no.fagskolentelemark.wrapper;
 
 public class Student {
 

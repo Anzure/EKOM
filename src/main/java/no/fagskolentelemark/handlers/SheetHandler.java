@@ -15,8 +15,8 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 import no.fagskolentelemark.EkomMain;
-import no.fagskolentelemark.objects.Student;
 import no.fagskolentelemark.utils.MainUtil;
+import no.fagskolentelemark.wrapper.Student;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -83,12 +83,16 @@ public class SheetHandler {
 			BufferedWriter enrollOutputWriter = null;
 			
 			HashMap<String, Integer> header = new HashMap<String, Integer>(); 
-			for (@SuppressWarnings("rawtypes") List row : values) {
+			for (List<Object> row : values) {
 				// Load header
 				if (header.isEmpty()) {
 					int i = 0;
 					for (Object o : row) {
 						String raw = (String) o;
+						if (raw.toLowerCase().startsWith("mail") || raw.toLowerCase().startsWith("e-post") || raw.toLowerCase().startsWith("epost"))
+							raw = "E-postadresse";
+						else if (raw.toLowerCase().startsWith("tlf") || raw.toLowerCase().startsWith("telefon") || raw.toLowerCase().startsWith("mobil"))
+							raw = "Tlf nr";
 						header.put(raw, i);
 						i++;
 					}
@@ -101,9 +105,9 @@ public class SheetHandler {
 					String email = (String) row.get(header.get("E-postadresse"));
 					int phone = Integer.parseInt(((String) row.get(header.get("Tlf nr"))).replace("+47", "").replace(" ", ""));
 
-					String userId = (lastName.substring(0, 3) + firstName.substring(0, 2) + EkomMain.courseName).toLowerCase().replace("æ", "e").replace("ø", "o").replace("å", "a").replace(" ", "").replace("ekom", "").replace("sandnes", "s").replace("rogaland", "r").replace("bransjeprogram", "").replaceAll("energidesign", "-edbf");
+					String userId = (lastName.substring(0, 3) + firstName.substring(0, 2) + "-odit").toLowerCase().replace("æ", "e").replace("å", "a").replace("ø", "o");
 					String password = MainUtil.generatePassword();
-					String courseId = EkomMain.courseName.toLowerCase().replace(" ", "");
+					String courseId = EkomMain.courseId;
 
 					Student user = new Student(firstName, lastName, userId, phone, email, password);
 					if (!HistoryHandler.seenBefore(user)) {
@@ -118,8 +122,6 @@ public class SheetHandler {
 						
 						userOutputWriter.write(userId + "," + password + "," + firstName + "," + lastName + "," + email + "," + email + ",active");
 						userOutputWriter.newLine();
-						
-						
 						
 						// Enrollment file
 						if (enrollOutputWriter == null) {

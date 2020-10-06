@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.fagskolentelemark.EkomMain;
-import no.fagskolentelemark.objects.Student;
+import no.fagskolentelemark.wrapper.Student;
 
 public class HistoryHandler {
 
