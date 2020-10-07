@@ -54,7 +54,7 @@ public class MailHandler {
 			Message msg = new MimeMessage(session);
 			msg.setFrom(fromAddress);
 			msg.addRecipient(Message.RecipientType.TO,toAddress);
-//			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("andre.mathisen@outlook.com"));
+			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("andre.mathisen@odit.no"));
 			msg.setSubject(msgSubject);
 
 			Multipart multipart = new MimeMultipart();

@@ -120,7 +120,7 @@ public class SheetHandler {
 							userOutputWriter.newLine();
 						}
 						
-						userOutputWriter.write(userId + "," + password + "," + firstName + "," + lastName + "," + email + "," + email + ",active");
+						userOutputWriter.write(email + "," + password + "," + firstName + "," + lastName + "," + email + "," + email + ",active");
 						userOutputWriter.newLine();
 						
 						// Enrollment file

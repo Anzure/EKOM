@@ -52,18 +52,18 @@ public class EkomMain {
 			// Send emails
 			System.out.println("Sending email...");
 			for (Student student : newStudents) {
-				MailHandler.sendMail("andre.mathisen@odit.no", student.getUsername(), student.getPassword());
+				MailHandler.sendMail(student.getEmail(), student.getUsername(), student.getPassword());
 				System.out.println("Email sent to " + student.getEmail() + " with " + student.getUsername() + " and " + student.getPassword());
 			}
 
 			// Send SMS
 			for (Student student : newStudents) {
-				String txt = courseName + "\nBrukernavn: " + student.getUsername() + "\nPassord: " + student.getPassword() + "\nSe epost for mer info.\n(sjekk eventuelt spam-mappen)";
+				String txt = courseId + "\nBrukernavn: " + student.getEmail() + "\nPassord: " + student.getPassword() + "\nSe epost for mer info.\n(sjekk eventuelt spam-mappen)";
 
-//				int result = MainUtil.sendSMS(student.getPhone(), txt);
-//				if (result == 200) {
+				int result = MainUtil.sendSMS(student.getPhone(), txt);
+				if (result == 200) {
 					System.out.println("SMS sent to " + student.getPhone());
-//				}
+				}
 			}
 
 		} catch (Exception e) {
